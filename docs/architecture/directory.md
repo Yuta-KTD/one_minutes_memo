@@ -1,4 +1,5 @@
 # 構成
+TODO: ある程度固まったら書く
 
 # 参考
 - [MVVM+Repositoryパターンを採用したFlutterアプリを構築する](https://zenn.dev/alesion/articles/ab2df82a3809b7)
