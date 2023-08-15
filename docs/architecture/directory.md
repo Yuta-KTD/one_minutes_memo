@@ -24,3 +24,8 @@ TODO: ある程度固まったら書く
 
 monoさんのリポジトリも参考になりそう
 - https://github.com/mono0926/wdb106-flutter
+
+## DIについて
+この辺のアーキテクチャのメリットとかを考える時にDIちゃんと理解してないとね
+- https://zenn.dev/tokium_dev/articles/dependency-injection-watanabe
+- https://docs.sakai-sc.co.jp/article/software-engineering/dependency-injection.html
