@@ -26,27 +26,60 @@ class _AddMemoScreenState extends State<AddMemoScreen> {
       appBar: AppBar(
         title: const SimpleText(text: TextConst.memoTitle),
       ),
-      body: FormBuilder(
-        key: _formKey,
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: PrimaryTextField(
-                name: "memo",
-                labelText: "本文",
-                errorText: _memoError,
-                isMultiLineInput: true,
-                validator: FormBuilderValidators.compose(
-                    [FormBuilderValidators.required()]),
-              ),
+      body: Column(
+        children: [
+          FormBuilder(
+            key: _formKey,
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: PrimaryTextField(
+                    name: "memo",
+                    labelText: "本文",
+                    errorText: _memoError,
+                    isMultiLineInput: true,
+                    validator: FormBuilderValidators.compose(
+                      [FormBuilderValidators.required()],
+                    ),
+                  ),
+                ),
+                PrimaryButton(
+                  onPressed: () => onPressed(),
+                  text: "メモを追加",
+                ),
+              ],
             ),
-            PrimaryButton(
-              onPressed: () => onPressed(),
-              text: "メモを追加",
+          ),
+          SingleChildScrollView(
+            child: Column(
+              children: [
+                const Card(
+                  elevation: 4,
+                  child: SizedBox(
+                      height: 50,
+                      width: double.infinity,
+                      child: Center(child: Text('メモ'))),
+                ),
+                ListView(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  children: const [
+                    Text('Sample 1'),
+                    Text('Sample 2'),
+                    Text('Sample 3'),
+                    Text('Sample 4'),
+                    Text('Sample 5'),
+                    Text('Sample 6'),
+                    Text('Sample 7'),
+                    Text('Sample 8'),
+                    Text('Sample 9'),
+                  ],
+                )
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -64,13 +97,5 @@ class _AddMemoScreenState extends State<AddMemoScreen> {
     );
     _formKey.currentState?.save();
     print(_formKey.currentState?.value["memo"]);
-  }
-
-  String? existValidator(String? value) {
-    // _formKey.currentState!.validate()が実行された時に呼び出される
-    if (value == null || value.isEmpty) {
-      return '最低1文字は入力してください';
-    }
-    return null;
   }
 }
