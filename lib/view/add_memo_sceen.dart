@@ -1,22 +1,22 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:one_minutes_memo/provider/memo_content_list.dart';
 
 import '../constant/text_const.dart';
 import '../ui/component/button/primary_button.dart';
 import '../ui/component/form/primary_text_field.dart';
 import '../ui/component/simple_text.dart';
 
-class AddMemoScreen extends StatefulWidget {
+class AddMemoScreen extends ConsumerStatefulWidget {
   const AddMemoScreen({super.key});
 
   @override
-  State<AddMemoScreen> createState() => _AddMemoScreenState();
+  AddMemoScreenState createState() => AddMemoScreenState();
 }
 
-class _AddMemoScreenState extends State<AddMemoScreen> {
+class AddMemoScreenState extends ConsumerState<AddMemoScreen> {
   final _formKey = GlobalKey<FormBuilderState>();
   String? _memoError;
 
@@ -42,10 +42,11 @@ class _AddMemoScreenState extends State<AddMemoScreen> {
                     validator: FormBuilderValidators.compose(
                       [FormBuilderValidators.required()],
                     ),
+                    onChanged: (_) => _onChanged(),
                   ),
                 ),
                 PrimaryButton(
-                  onPressed: () => onPressed(),
+                  onPressed: () => _onPressed(),
                   text: "メモを追加",
                 ),
               ],
@@ -59,7 +60,7 @@ class _AddMemoScreenState extends State<AddMemoScreen> {
                   child: SizedBox(
                       height: 50,
                       width: double.infinity,
-                      child: Center(child: Text('メモ'))),
+                      child: Center(child: Text('登録メモ'))),
                 ),
                 // パフォーマンス的にやめた方が良さそう
                 // TODO: https://www.youtube.com/watch?v=LUqDNnv_dh0 のようにCustomScrollView/Sliver使う
@@ -86,18 +87,32 @@ class _AddMemoScreenState extends State<AddMemoScreen> {
     );
   }
 
-  Future<void> onPressed() async {
+  void _onChanged() {
+    _formKey.currentState?.save();
+    print('test');
+  }
+
+  Future<void> _onPressed() async {
     setState(() => _memoError = null);
+
+    print(_formKey.currentState!.value["memo"]);
+    // print(_formKey.currentState!.validate());
+
+    // FIXME: 未入力→入力で登録をしてもバリデーションに引っかかる
     if (!_formKey.currentState!.validate()) {
       setState(() => _memoError = '最低1文字は入力が必要です');
       return;
     }
 
-    // TODO: API疎通側に移す
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text('データを送信')),
     );
-    _formKey.currentState?.save();
-    print(_formKey.currentState?.value["memo"]);
+    ref
+        .watch(memoContentsProvider.notifier)
+        .addMemo(_formKey.currentState!.value["memo"]);
+
+    // print(_formKey.currentState!.value["memo"]);
+
+    _formKey.currentState!.patchValue({'memo': ''});
   }
 }

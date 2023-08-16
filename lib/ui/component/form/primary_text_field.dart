@@ -11,6 +11,7 @@ class PrimaryTextField extends StatelessWidget {
       this.hintText,
       this.errorText,
       this.validator,
+      this.onChanged,
       this.keyboardType});
 
   final String name;
@@ -20,6 +21,7 @@ class PrimaryTextField extends StatelessWidget {
   final FormFieldValidator? validator;
   final TextInputType? keyboardType;
   final bool isMultiLineInput;
+  final void Function(String?)? onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +35,7 @@ class PrimaryTextField extends StatelessWidget {
       keyboardType: isMultiLineInput ? TextInputType.multiline : keyboardType,
       maxLines: isMultiLineInput ? 5 : 1,
       validator: validator,
+      onChanged: onChanged,
     );
   }
 }
