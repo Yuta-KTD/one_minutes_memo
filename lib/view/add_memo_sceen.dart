@@ -39,10 +39,11 @@ class AddMemoScreenState extends ConsumerState<AddMemoScreen> {
                     labelText: "本文",
                     errorText: _memoError,
                     isMultiLineInput: true,
-                    validator: FormBuilderValidators.compose(
-                      [FormBuilderValidators.required()],
-                    ),
-                    onChanged: (_) => _onChanged(),
+                    validator: FormBuilderValidators.compose([
+                      FormBuilderValidators.required(
+                        errorText: '最低1文字は入力が必要です',
+                      )
+                    ]),
                   ),
                 ),
                 PrimaryButton(
@@ -87,20 +88,10 @@ class AddMemoScreenState extends ConsumerState<AddMemoScreen> {
     );
   }
 
-  void _onChanged() {
-    _formKey.currentState?.save();
-    print('test');
-  }
-
   Future<void> _onPressed() async {
     setState(() => _memoError = null);
 
-    print(_formKey.currentState!.value["memo"]);
-    // print(_formKey.currentState!.validate());
-
-    // FIXME: 未入力→入力で登録をしてもバリデーションに引っかかる
-    if (!_formKey.currentState!.validate()) {
-      setState(() => _memoError = '最低1文字は入力が必要です');
+    if (!_formKey.currentState!.saveAndValidate()) {
       return;
     }
 
@@ -110,8 +101,6 @@ class AddMemoScreenState extends ConsumerState<AddMemoScreen> {
     ref
         .watch(memoContentsProvider.notifier)
         .addMemo(_formKey.currentState!.value["memo"]);
-
-    // print(_formKey.currentState!.value["memo"]);
 
     _formKey.currentState!.patchValue({'memo': ''});
   }
