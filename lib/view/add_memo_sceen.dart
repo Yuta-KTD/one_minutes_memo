@@ -18,7 +18,6 @@ class AddMemoScreen extends ConsumerStatefulWidget {
 
 class AddMemoScreenState extends ConsumerState<AddMemoScreen> {
   final _formKey = GlobalKey<FormBuilderState>();
-  String? _memoError;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +36,6 @@ class AddMemoScreenState extends ConsumerState<AddMemoScreen> {
                   child: PrimaryTextField(
                     name: "memo",
                     labelText: "本文",
-                    errorText: _memoError,
                     isMultiLineInput: true,
                     validator: FormBuilderValidators.compose([
                       FormBuilderValidators.required(
@@ -89,8 +87,6 @@ class AddMemoScreenState extends ConsumerState<AddMemoScreen> {
   }
 
   Future<void> _onPressed() async {
-    setState(() => _memoError = null);
-
     if (!_formKey.currentState!.saveAndValidate()) {
       return;
     }
