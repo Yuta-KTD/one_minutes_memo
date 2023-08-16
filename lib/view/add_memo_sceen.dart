@@ -61,6 +61,8 @@ class _AddMemoScreenState extends State<AddMemoScreen> {
                       width: double.infinity,
                       child: Center(child: Text('メモ'))),
                 ),
+                // パフォーマンス的にやめた方が良さそう
+                // TODO: https://www.youtube.com/watch?v=LUqDNnv_dh0 のようにCustomScrollView/Sliver使う
                 ListView(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
