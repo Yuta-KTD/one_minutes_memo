@@ -21,6 +21,7 @@ class AddMemoScreenState extends ConsumerState<AddMemoScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final List<String> addedMemos = ref.watch(memoContentsProvider);
     return Scaffold(
       appBar: AppBar(
         title: const SimpleText(text: TextConst.memoTitle),
@@ -51,33 +52,18 @@ class AddMemoScreenState extends ConsumerState<AddMemoScreen> {
               ],
             ),
           ),
-          SingleChildScrollView(
-            child: Column(
-              children: [
-                const Card(
-                  elevation: 4,
-                  child: SizedBox(
-                      height: 50,
-                      width: double.infinity,
-                      child: Center(child: Text('登録メモ'))),
+          Expanded(
+            child: CustomScrollView(
+              slivers: <Widget>[
+                SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (context, index) {
+                      return ListTile(
+                          title: SimpleText(text: addedMemos[index]));
+                    },
+                    childCount: addedMemos.length,
+                  ),
                 ),
-                // パフォーマンス的にやめた方が良さそう
-                // TODO: https://www.youtube.com/watch?v=LUqDNnv_dh0 のようにCustomScrollView/Sliver使う
-                ListView(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  children: const [
-                    Text('Sample 1'),
-                    Text('Sample 2'),
-                    Text('Sample 3'),
-                    Text('Sample 4'),
-                    Text('Sample 5'),
-                    Text('Sample 6'),
-                    Text('Sample 7'),
-                    Text('Sample 8'),
-                    Text('Sample 9'),
-                  ],
-                )
               ],
             ),
           ),
