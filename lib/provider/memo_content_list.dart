@@ -1,7 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final memoList = Provider((ref) => {});
-
 class MemoContentsNotifier extends StateNotifier<List<String>> {
   MemoContentsNotifier() : super([]);
 
