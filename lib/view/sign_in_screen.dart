@@ -11,12 +11,12 @@ class SignInScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const SimpleText(text: TextConst.signInTitle),
+        title: const SimpleText(TextConst.signInTitle),
       ),
       body: Center(
         child: TextButton(
-          child: const SimpleText(text: 'メモを追加'),
-          onPressed: () => context.go('/addmemo'),
+          child: const SimpleText('メモを追加'),
+          onPressed: () => context.go('/title'),
         ),
       ),
     );

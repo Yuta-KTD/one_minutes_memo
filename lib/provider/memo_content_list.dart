@@ -5,12 +5,13 @@ class MemoContentsNotifier extends StateNotifier<List<String>> {
 
   void addMemo(String memo) {
     state = [...state, memo];
-    print(state);
   }
   // TODO: "removeTodo" のような他のメソッドを追加する
 }
 
+// TODO: ID採番されるようになったらfamily使って操作できるようにするのもあり？
 final memoContentsProvider =
-    StateNotifierProvider<MemoContentsNotifier, List<String>>((ref) {
+    StateNotifierProvider.autoDispose<MemoContentsNotifier, List<String>>(
+        (ref) {
   return MemoContentsNotifier();
 });
