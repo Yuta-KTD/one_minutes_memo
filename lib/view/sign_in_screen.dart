@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:one_minutes_memo/constant/text_const.dart';
 
+import '../constant/text_const.dart';
 import '../ui/component/simple_text.dart';
 
 class SignInScreen extends StatelessWidget {

@@ -3,11 +3,11 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:go_router/go_router.dart';
-import 'package:one_minutes_memo/provider/memo_title_provider.dart';
-import 'package:one_minutes_memo/ui/component/simple_text.dart';
 
+import '../provider/memo_title_provider.dart';
 import '../ui/component/button/primary_button.dart';
 import '../ui/component/form/primary_text_field.dart';
+import '../ui/component/simple_text.dart';
 
 class TitleScreen extends ConsumerWidget {
   TitleScreen({super.key});
