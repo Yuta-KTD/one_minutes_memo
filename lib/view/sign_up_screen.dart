@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:one_minutes_memo/constant/text_const.dart';
 
+import '../constant/text_const.dart';
 import '../ui/component/simple_text.dart';
 
 class SignUpScreen extends StatelessWidget {

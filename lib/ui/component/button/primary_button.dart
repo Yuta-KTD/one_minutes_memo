@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:one_minutes_memo/ui/component/simple_text.dart';
+
+import '../simple_text.dart';
 
 class PrimaryButton extends StatelessWidget {
   const PrimaryButton({super.key, required this.onPressed, required this.text});
