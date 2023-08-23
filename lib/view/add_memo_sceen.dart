@@ -31,6 +31,11 @@ class AddMemoScreenState extends ConsumerState<AddMemoScreen> {
         appBar: AppBar(
           title: SimpleText("メモの入力(タイトル: ${memoTitle ?? 'なし'})"),
         ),
+        bottomNavigationBar: BottomAppBar(
+            child: PrimaryButton(
+          onPressed: () => _onSessionSubmitted(),
+          text: "セクションを終了",
+        )),
         body: Column(
           children: [
             FormBuilder(
@@ -100,5 +105,9 @@ class AddMemoScreenState extends ConsumerState<AddMemoScreen> {
         .addMemo(_formKey.currentState!.value["memo"]);
 
     _formKey.currentState!.patchValue({'memo': ''});
+  }
+
+  void _onSessionSubmitted() {
+    // FireStoreへの保存処理を書く
   }
 }
