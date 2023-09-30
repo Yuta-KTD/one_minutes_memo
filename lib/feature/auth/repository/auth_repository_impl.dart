@@ -7,6 +7,7 @@ class AuthRepositoryImpl implements AuthRepositoryInterface {
 
   @override
   Future<void> signUp(LocalUser user) async {
+    print('着てる？');
     await auth.createUserWithEmailAndPassword(
       email: user.email,
       password: user.password,

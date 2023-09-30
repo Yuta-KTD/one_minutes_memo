@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:one_minutes_memo/feature/auth/view/controller/auth_controller_impl.dart';
-import 'package:one_minutes_memo/ui/component/form/primary_text_field.dart';
+import 'package:one_minutes_memo/feature/auth/view/controller/auth_controller.dart';
 
 import '../../../constant/text_const.dart';
 import '../../../ui/component/simple_text.dart';
@@ -44,7 +43,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: ElevatedButton(
-                  onPressed: () => _onPressed,
+                  onPressed: () => _onPressed(),
                   child: const Text('ユーザー登録'),
                 ),
               )
@@ -56,7 +55,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   Future<void> _onPressed() async {
-    await AuthControllerImpl().signUp(
+    await AuthController().signUp(
       email: _emailController.text,
       password: _passwordController.text,
     );
