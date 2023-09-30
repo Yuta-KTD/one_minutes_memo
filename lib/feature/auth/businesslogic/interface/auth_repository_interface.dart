@@ -8,4 +8,6 @@ abstract class AuthRepositoryInterface {
   Future<void> signOut();
 
   Future<void> deleteUser(LocalUser user);
+
+  // Future<User>
 }

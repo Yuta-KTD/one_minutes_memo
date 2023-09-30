@@ -1,4 +1,4 @@
-import 'package:one_minutes_memo/businesslogic/interface/auth_repository_interface.dart';
+import 'package:one_minutes_memo/feature/auth/businesslogic/interface/auth_repository_interface.dart';
 import 'package:one_minutes_memo/model/local_user.dart';
 
 class AuthLogic {
