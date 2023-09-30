@@ -7,7 +7,6 @@ class AuthController {
   // ここはImplを入れてもいいんだろうか？
   final AuthLogic authLogic = AuthLogic(AuthRepositoryImpl());
 
-  @override
   Future<void> signUp(
       {required String email,
       required String password,
@@ -16,7 +15,6 @@ class AuthController {
         email: email, password: password, userName: userName);
   }
 
-  @override
   Future<void> signIn({
     required String email,
     required String password,
