@@ -1,6 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:one_minutes_memo/feature/auth/domain/local_user.dart';
 
 abstract class AuthRepositoryInterface {
+  Stream<User?> authStateChanges();
+
+  User? get currentUser;
+
   Future<void> signIn(LocalUser user);
 
   Future<void> signUp(LocalUser user);

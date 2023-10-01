@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:one_minutes_memo/feature/auth/data/repository/auth_repository_impl.dart';
 import 'package:one_minutes_memo/feature/auth/domain/local_user.dart';
-import 'package:one_minutes_memo/feature/auth/repository/auth_repository_impl.dart';
 
-class SignUpController extends AutoDisposeAsyncNotifier {
+class SignUpControllerAsyncNotifier extends AutoDisposeAsyncNotifier {
   @override
   FutureOr<void> build() {}
 
@@ -19,3 +19,8 @@ class SignUpController extends AutoDisposeAsyncNotifier {
     state = await AsyncValue.guard(() => authRepository.signUp(signUpParam));
   }
 }
+
+final signUpControllerAsyncProvider =
+    AsyncNotifierProvider.autoDispose<SignUpControllerAsyncNotifier, void>(() {
+  return SignUpControllerAsyncNotifier();
+});

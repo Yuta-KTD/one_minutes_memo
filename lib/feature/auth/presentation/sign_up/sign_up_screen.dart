@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:one_minutes_memo/constant/text_const.dart';
-import 'package:one_minutes_memo/feature/auth/view/controller/auth_controller.dart';
+import 'package:one_minutes_memo/feature/auth/presentation/sign_up/sign_up_controller.dart';
 import 'package:one_minutes_memo/ui/component/simple_text.dart';
 
-class SignUpScreen extends StatefulWidget {
+class SignUpScreen extends ConsumerStatefulWidget {
   const SignUpScreen({super.key});
 
   @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _SignUpScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
+class _SignUpScreenState extends ConsumerState<SignUpScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -54,7 +55,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   Future<void> _onPressed() async {
-    await AuthController().signUp(
+    final signUpController = ref.read(signUpControllerAsyncProvider.notifier);
+    await signUpController.signUp(
       email: _emailController.text,
       password: _passwordController.text,
     );
