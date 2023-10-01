@@ -16,7 +16,7 @@ class AuthRepositoryImpl implements AuthRepositoryInterface {
 
   @override
   Future<void> signUp(LocalUser user) async {
-    await _auth.createUserWithEmailAndPassword(
+    _auth.createUserWithEmailAndPassword(
       email: user.email,
       password: user.password,
     );
