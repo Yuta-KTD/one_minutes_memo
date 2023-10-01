@@ -15,8 +15,8 @@ class SignUpControllerAsyncNotifier extends AutoDisposeAsyncNotifier {
     final authRepository = ref.read(authRepositoryProvider);
     final signUpParam =
         LocalUser(password: password, email: email, userName: userName);
-    state = const AsyncLoading();
-    state = await AsyncValue.guard(() => authRepository.signUp(signUpParam));
+    const AsyncLoading();
+    await AsyncValue.guard(() => authRepository.signUp(signUpParam));
   }
 }
 
