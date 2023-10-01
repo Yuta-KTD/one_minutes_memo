@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:one_minutes_memo/feature/auth/businesslogic/interface/auth_repository_interface.dart';
-import 'package:one_minutes_memo/model/local_user.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:one_minutes_memo/feature/auth/domain/interface/auth_repository_interface.dart';
+import 'package:one_minutes_memo/feature/auth/domain/local_user.dart';
 
 class AuthRepositoryImpl implements AuthRepositoryInterface {
   final FirebaseAuth auth = FirebaseAuth.instance;
@@ -22,9 +24,9 @@ class AuthRepositoryImpl implements AuthRepositoryInterface {
       );
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        print('No user found for that email.');
+        debugPrint('No user found for that email.');
       } else if (e.code == 'wrong-password') {
-        print('Wrong password provided for that user.');
+        debugPrint('Wrong password provided for that user.');
       }
       rethrow;
     }
@@ -40,3 +42,6 @@ class AuthRepositoryImpl implements AuthRepositoryInterface {
     // await user?.delete();
   }
 }
+
+final authRepositoryProvider = Provider.autoDispose<AuthRepositoryInterface>(
+    (ref) => AuthRepositoryImpl());

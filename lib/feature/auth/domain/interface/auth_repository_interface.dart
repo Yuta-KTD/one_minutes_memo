@@ -1,4 +1,4 @@
-import 'package:one_minutes_memo/model/local_user.dart';
+import 'package:one_minutes_memo/feature/auth/domain/local_user.dart';
 
 abstract class AuthRepositoryInterface {
   Future<void> signIn(LocalUser user);
