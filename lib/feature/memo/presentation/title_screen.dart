@@ -3,6 +3,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:go_router/go_router.dart';
+import 'package:one_minutes_memo/feature/auth/data/repository/auth_repository_impl.dart';
 
 import '../../../provider/memo_title_provider.dart';
 import '../../../ui/component/button/primary_button.dart';
@@ -19,6 +20,12 @@ class TitleScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: const SimpleText("今回のテーマ"),
+        actions: [
+          IconButton(
+            onPressed: () => ref.read(authRepositoryProvider).signOut(),
+            icon: const Icon(Icons.navigate_next),
+          ),
+        ],
       ),
       body: Center(
         child: FormBuilder(
