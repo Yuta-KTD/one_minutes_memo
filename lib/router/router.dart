@@ -8,6 +8,7 @@ import 'package:one_minutes_memo/feature/memo/presentation/title_screen.dart';
 
 final routerProvider = Provider.autoDispose<GoRouter>(
   (ref) {
+    ref.keepAlive();
     final authState = ref.watch(authStateChangesProvier);
     return GoRouter(
       routes: [
@@ -32,9 +33,7 @@ final routerProvider = Provider.autoDispose<GoRouter>(
       ],
       redirect: (context, state) {
         if (authState.isLoading || authState.hasError) return null;
-
         if (authState.valueOrNull == null) return null;
-
         return '/title';
       },
     );
