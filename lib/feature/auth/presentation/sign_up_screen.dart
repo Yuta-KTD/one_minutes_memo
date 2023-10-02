@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:one_minutes_memo/constant/text_const.dart';
-import 'package:one_minutes_memo/feature/auth/presentation/sign_up/sign_up_controller.dart';
+import 'package:one_minutes_memo/feature/auth/presentation/controller/sign_up_controller.dart';
 import 'package:one_minutes_memo/ui/component/simple_text.dart';
 
 class SignUpScreen extends ConsumerStatefulWidget {
