@@ -16,16 +16,20 @@ class AuthRepositoryImpl implements AuthRepositoryInterface {
 
   @override
   Future<void> signUp(LocalUser user) async {
-    _auth.createUserWithEmailAndPassword(
-      email: user.email,
-      password: user.password,
-    );
+    try {
+      await _auth.createUserWithEmailAndPassword(
+        email: user.email,
+        password: user.password,
+      );
+    } on FirebaseAuthException catch (e) {
+      rethrow;
+    }
   }
 
   @override
   Future<void> signIn(LocalUser user) async {
     try {
-      _auth.signInWithEmailAndPassword(
+      await _auth.signInWithEmailAndPassword(
         email: user.email,
         password: user.password,
       );
@@ -35,6 +39,8 @@ class AuthRepositoryImpl implements AuthRepositoryInterface {
       } else if (e.code == 'wrong-password') {
         debugPrint('Wrong password provided for that user.');
       }
+      rethrow;
+    } catch (e) {
       rethrow;
     }
   }
