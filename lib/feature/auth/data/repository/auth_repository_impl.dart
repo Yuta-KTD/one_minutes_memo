@@ -1,8 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:one_minutes_memo/feature/auth/domain/interface/auth_repository_interface.dart';
 import 'package:one_minutes_memo/feature/auth/domain/local_user.dart';
+import 'package:one_minutes_memo/util/exception/auth/auth_exception.dart';
+import 'package:one_minutes_memo/util/exception/auth/firebase_auth_signin_error_code.dart';
 
 class AuthRepositoryImpl implements AuthRepositoryInterface {
   AuthRepositoryImpl(this._auth);
@@ -22,7 +23,12 @@ class AuthRepositoryImpl implements AuthRepositoryInterface {
         password: user.password,
       );
     } on FirebaseAuthException catch (e) {
-      rethrow;
+      if (e.code == FirebaseAuthSigninErrorCode.emailAlreadyInUse.receiveCode) {
+        throw FirebaseAuthSigninErrorCode.emailAlreadyInUse.exception;
+      }
+      throw const AuthException('ユーザー登録に失敗しました');
+    } catch (e) {
+      throw const AuthException('原因不明のエラーが発生しました\n開発者にお問い合わせください');
     }
   }
 
@@ -34,14 +40,24 @@ class AuthRepositoryImpl implements AuthRepositoryInterface {
         password: user.password,
       );
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        debugPrint('No user found for that email.');
-      } else if (e.code == 'wrong-password') {
-        debugPrint('Wrong password provided for that user.');
+      if (e.code == FirebaseAuthSigninErrorCode.userNotFound.receiveCode) {
+        throw FirebaseAuthSigninErrorCode.userNotFound.exception;
+      } else if (e.code ==
+          FirebaseAuthSigninErrorCode.wrongPassword.receiveCode) {
+        throw FirebaseAuthSigninErrorCode.wrongPassword.exception;
+      } else if (e.code ==
+          FirebaseAuthSigninErrorCode.invalidEmail.receiveCode) {
+        throw FirebaseAuthSigninErrorCode.invalidEmail.exception;
+      } else if (e.code ==
+          FirebaseAuthSigninErrorCode.userDisabled.receiveCode) {
+        throw FirebaseAuthSigninErrorCode.userDisabled.exception;
+      } else if (e.code ==
+          FirebaseAuthSigninErrorCode.tooManyRequests.receiveCode) {
+        throw FirebaseAuthSigninErrorCode.tooManyRequests.exception;
       }
-      rethrow;
+      throw const AuthException('ログインに失敗しました');
     } catch (e) {
-      rethrow;
+      throw const AuthException('原因不明のエラーが発生しました\n開発者にお問い合わせください');
     }
   }
 
