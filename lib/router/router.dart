@@ -15,10 +15,12 @@ final routerProvider = Provider.autoDispose<GoRouter>(
         GoRoute(
           path: '/',
           builder: (context, state) => const SignInScreen(),
-        ),
-        GoRoute(
-          path: '/signup',
-          builder: (context, state) => const SignUpScreen(),
+          routes: <RouteBase>[
+            GoRoute(
+              path: 'signup',
+              builder: (context, state) => const SignUpScreen(),
+            ),
+          ],
         ),
         GoRoute(
           path: '/title',

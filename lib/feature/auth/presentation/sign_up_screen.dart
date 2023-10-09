@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:one_minutes_memo/constant/text_const.dart';
 import 'package:one_minutes_memo/feature/auth/presentation/controller/sign_up_controller.dart';
-import 'package:one_minutes_memo/ui/component/simple_text.dart';
+import 'package:one_minutes_memo/ui/component/basic_app_bar.dart';
+import 'package:one_minutes_memo/ui/theme/form_screen_theme.dart';
 
 class SignUpScreen extends ConsumerStatefulWidget {
   const SignUpScreen({super.key});
@@ -25,20 +26,22 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const SimpleText(TextConst.signUpTitle),
+    return FormScreenTheme(
+      appBar: const BasicAppBar(
+        title: TextConst.signUpTitle,
       ),
-      body: Center(
-        child: Form(
+      children: [
+        Form(
           key: _formKey,
           child: Column(
             children: [
               TextFormField(
                 controller: _emailController,
+                decoration: const InputDecoration(labelText: 'メールアドレス'),
               ),
               TextFormField(
                 controller: _passwordController,
+                decoration: const InputDecoration(labelText: 'パスワード'),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -50,7 +53,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
             ],
           ),
         ),
-      ),
+      ],
     );
   }
 
