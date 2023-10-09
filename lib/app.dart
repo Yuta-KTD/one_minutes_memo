@@ -12,7 +12,7 @@ class OneMinutesMemoApp extends ConsumerWidget {
     return MaterialApp.router(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.indigo,
       ),
       // routerConfigでrouterDelegateやbackButtonDispatcherなどをまとめて設定してくれる
       // NOTE: 今後ルーティングで課題が出たらrouterDelegateなどを個別設定する
