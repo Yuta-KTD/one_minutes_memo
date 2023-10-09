@@ -15,7 +15,16 @@ class LoadingButton extends PrimaryButton {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: onPressed,
-      child: isLoading ? const CircularProgressIndicator() : SimpleText(text),
+      child: isLoading
+          ? const SizedBox(
+              width: 10.0,
+              height: 10.0,
+              child: CircularProgressIndicator(
+                strokeWidth: 2.0,
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+              ),
+            )
+          : SimpleText(text),
     );
   }
 }
