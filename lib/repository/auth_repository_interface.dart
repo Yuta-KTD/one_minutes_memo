@@ -8,6 +8,8 @@ abstract class AuthRepositoryInterface {
 
   Future<void> signIn(LocalUser user);
 
+  Future<void> signInAnonymously();
+
   Future<void> signUp(LocalUser user);
 
   Future<void> signOut();

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:one_minutes_memo/provider/sign_in_anonymously.dart';
 import 'package:one_minutes_memo/provider/sign_in_provider.dart';
 import 'package:one_minutes_memo/util/async_value_ui.dart';
 import 'package:one_minutes_memo/view/component/button/loading_button.dart';
@@ -32,9 +33,13 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
       signInAsyncProvider,
       (_, state) => state.showSnackbarOnError(context),
     );
-    final signInControllerAsyncValue = ref.watch(signInAsyncProvider);
     return FormScreenTheme(
       children: [
+        LoadingButton(
+          onPressed: () => _signInAnonymously(),
+          text: '匿名でログイン',
+          isLoading: ref.watch(signInAnonymousAsyncProvider).isLoading,
+        ),
         Form(
           key: _signInFormKey,
           child: Column(
@@ -50,9 +55,9 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: LoadingButton(
-                  onPressed: () => _onPressed(),
+                  onPressed: () => _signIn(),
                   text: 'ログイン',
-                  isLoading: signInControllerAsyncValue.isLoading,
+                  isLoading: ref.watch(signInAsyncProvider).isLoading,
                 ),
               )
             ],
@@ -66,7 +71,13 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
     );
   }
 
-  Future<void> _onPressed() async {
+  Future<void> _signInAnonymously() async {
+    final signInAnonymouslyController =
+        ref.read(signInAnonymousAsyncProvider.notifier);
+    await signInAnonymouslyController.signInAnonymously();
+  }
+
+  Future<void> _signIn() async {
     final signInController = ref.read(signInAsyncProvider.notifier);
     await signInController.signIn(
       email: _emailController.text,

@@ -62,6 +62,21 @@ class AuthRepositoryImpl implements AuthRepositoryInterface {
   }
 
   @override
+  Future<void> signInAnonymously() async {
+    try {
+      await _auth.signInAnonymously();
+    } on FirebaseAuthException catch (e) {
+      switch (e.code) {
+        case "operation-not-allowed":
+          const AuthException('匿名認証が有効になっていません\n開発者にお問い合わせください');
+          break;
+        default:
+          throw const AuthException('原因不明のエラーが発生しました\n開発者にお問い合わせください');
+      }
+    }
+  }
+
+  @override
   Future<void> signOut() async {
     await _auth.signOut();
   }
