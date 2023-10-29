@@ -1,3 +1,4 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:one_minutes_memo/router/router.dart';
@@ -11,7 +12,11 @@ class OneMinutesMemoApp extends ConsumerWidget {
     final goRouter = ref.watch(routerProvider);
 
     return MaterialApp.router(
-      builder: (context, child) => TextScaleFactor(child: child ?? Container()),
+      locale: DevicePreview.locale(context),
+      builder: (context, child) => DevicePreview.appBuilder(
+        context,
+        TextScaleFactor(child: child ?? Container()),
+      ),
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.indigo,
