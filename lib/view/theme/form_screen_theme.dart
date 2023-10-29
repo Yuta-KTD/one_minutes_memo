@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:one_minutes_memo/ui/component/basic_app_bar.dart';
+import 'package:one_minutes_memo/view/component/basic_app_bar.dart';
 
 class FormScreenTheme extends StatelessWidget {
   const FormScreenTheme({super.key, required this.children, this.appBar});

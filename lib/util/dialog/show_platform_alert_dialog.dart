@@ -2,8 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import '../../ui/component/simple_text.dart';
+import 'package:one_minutes_memo/view/component/simple_text.dart';
 
 /// OSごとにダイアログを出し分ける
 Future<bool> showPlatformAlertDialog(

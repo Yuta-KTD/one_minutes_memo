@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:one_minutes_memo/ui/component/simple_text.dart';
+import 'package:one_minutes_memo/view/component/simple_text.dart';
 
 class BasicAppBar extends StatelessWidget implements PreferredSizeWidget {
   const BasicAppBar({super.key, required this.title});

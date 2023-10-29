@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:one_minutes_memo/feature/auth/domain/interface/auth_repository_interface.dart';
-import 'package:one_minutes_memo/feature/auth/domain/local_user.dart';
+import 'package:one_minutes_memo/model/local_user.dart';
+import 'package:one_minutes_memo/repository/auth_repository_interface.dart';
 import 'package:one_minutes_memo/util/exception/auth/auth_exception.dart';
 import 'package:one_minutes_memo/util/exception/auth/firebase_auth_signin_error_code.dart';
 

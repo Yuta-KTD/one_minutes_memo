@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:one_minutes_memo/constant/text_const.dart';
-import 'package:one_minutes_memo/feature/auth/presentation/controller/sign_up_controller.dart';
-import 'package:one_minutes_memo/ui/component/basic_app_bar.dart';
-import 'package:one_minutes_memo/ui/theme/form_screen_theme.dart';
+import 'package:one_minutes_memo/provider/sign_up_controller.dart';
+import 'package:one_minutes_memo/view/component/basic_app_bar.dart';
+import 'package:one_minutes_memo/view/theme/form_screen_theme.dart';
 
 class SignUpScreen extends ConsumerStatefulWidget {
   const SignUpScreen({super.key});
@@ -58,7 +58,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
   }
 
   Future<void> _onPressed() async {
-    final signUpController = ref.read(signUpControllerAsyncProvider.notifier);
+    final signUpController = ref.read(signUpAsyncProvider.notifier);
     await signUpController.signUp(
       email: _emailController.text,
       password: _passwordController.text,

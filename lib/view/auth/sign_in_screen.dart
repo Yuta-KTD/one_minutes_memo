@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:one_minutes_memo/feature/auth/presentation/controller/sign_in_controller.dart';
-import 'package:one_minutes_memo/ui/component/button/loading_button.dart';
-import 'package:one_minutes_memo/ui/component/button/primary_button.dart';
-import 'package:one_minutes_memo/ui/theme/form_screen_theme.dart';
+import 'package:one_minutes_memo/provider/sign_in_provider.dart';
 import 'package:one_minutes_memo/util/async_value_ui.dart';
+import 'package:one_minutes_memo/view/component/button/loading_button.dart';
+import 'package:one_minutes_memo/view/component/button/primary_button.dart';
+import 'package:one_minutes_memo/view/theme/form_screen_theme.dart';
 
 class SignInScreen extends ConsumerStatefulWidget {
   const SignInScreen({super.key});
@@ -29,10 +29,10 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
   @override
   Widget build(BuildContext context) {
     ref.listen<AsyncValue<void>>(
-      signInControllerAsyncProvider,
+      signInAsyncProvider,
       (_, state) => state.showSnackbarOnError(context),
     );
-    final signInControllerAsyncValue = ref.watch(signInControllerAsyncProvider);
+    final signInControllerAsyncValue = ref.watch(signInAsyncProvider);
     return FormScreenTheme(
       children: [
         Form(
@@ -67,7 +67,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
   }
 
   Future<void> _onPressed() async {
-    final signInController = ref.read(signInControllerAsyncProvider.notifier);
+    final signInController = ref.read(signInAsyncProvider.notifier);
     await signInController.signIn(
       email: _emailController.text,
       password: _passwordController.text,
