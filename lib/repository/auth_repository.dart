@@ -1,12 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:one_minutes_memo/model/local_user.dart';
 import 'package:one_minutes_memo/repository/auth_repository_interface.dart';
 import 'package:one_minutes_memo/util/exception/auth/auth_exception.dart';
 import 'package:one_minutes_memo/util/exception/auth/firebase_auth_signin_error_code.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-class AuthRepositoryImpl implements AuthRepositoryInterface {
-  AuthRepositoryImpl(this._auth);
+part 'auth_repository.g.dart';
+
+class AuthRepository implements AuthRepositoryInterface {
+  AuthRepository(this._auth);
   final FirebaseAuth _auth;
 
   @override
@@ -87,11 +89,17 @@ class AuthRepositoryImpl implements AuthRepositoryInterface {
   }
 }
 
-final firebaseAuthProvider =
-    Provider<FirebaseAuth>((ref) => FirebaseAuth.instance);
+@riverpod
+FirebaseAuth firebaseAuth(FirebaseAuthRef ref) {
+  return FirebaseAuth.instance;
+}
 
-final authRepositoryProvider = Provider.autoDispose<AuthRepositoryInterface>(
-    (ref) => AuthRepositoryImpl(ref.watch(firebaseAuthProvider)));
+@riverpod
+AuthRepositoryInterface authRepository(AuthRepositoryRef ref) {
+  return AuthRepository(ref.watch(firebaseAuthProvider));
+}
 
-final authStateChangesProvier = StreamProvider.autoDispose<User?>(
-    (ref) => ref.watch(authRepositoryProvider).authStateChanges());
+@riverpod
+Stream<User?> authStateChanges(AuthStateChangesRef ref) {
+  return ref.watch(authRepositoryProvider).authStateChanges();
+}

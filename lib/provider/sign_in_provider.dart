@@ -1,10 +1,13 @@
 import 'dart:async';
 
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:one_minutes_memo/model/local_user.dart';
-import 'package:one_minutes_memo/repository/auth_repository_impl.dart';
+import 'package:one_minutes_memo/repository/auth_repository.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-class SignInAsyncNotifier extends AutoDisposeAsyncNotifier<void> {
+part 'sign_in_provider.g.dart';
+
+@riverpod
+class SignInAsyncNotifier extends _$SignInAsyncNotifier {
   @override
   FutureOr<void> build() {}
 
@@ -18,8 +21,3 @@ class SignInAsyncNotifier extends AutoDisposeAsyncNotifier<void> {
     state = await AsyncValue.guard(() => authRepository.signIn(signInParam));
   }
 }
-
-final signInAsyncProvider =
-    AsyncNotifierProvider.autoDispose<SignInAsyncNotifier, void>(() {
-  return SignInAsyncNotifier();
-});
