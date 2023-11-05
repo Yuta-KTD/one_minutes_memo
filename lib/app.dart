@@ -9,7 +9,7 @@ class OneMinutesMemoApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final goRouter = ref.watch(routerProvider);
+    final router = ref.watch(routerProvider);
 
     return MaterialApp.router(
       locale: DevicePreview.locale(context),
@@ -21,9 +21,9 @@ class OneMinutesMemoApp extends ConsumerWidget {
       theme: ThemeData(
         primarySwatch: Colors.indigo,
       ),
-      // routerConfigでrouterDelegateやbackButtonDispatcherなどをまとめて設定してくれる
-      // NOTE: 今後ルーティングで課題が出たらrouterDelegateなどを個別設定する
-      routerConfig: goRouter,
+      routeInformationParser: router.routeInformationParser,
+      routerDelegate: router.routerDelegate,
+      routeInformationProvider: router.routeInformationProvider,
     );
   }
 }
