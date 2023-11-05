@@ -14,7 +14,7 @@ void main() async {
   );
   runApp(
     DevicePreview(
-      enabled: !kReleaseMode,
+      enabled: !kReleaseMode && kIsWeb,
       builder: (context) => const ProviderScope(child: OneMinutesMemoApp()),
     ),
   );
