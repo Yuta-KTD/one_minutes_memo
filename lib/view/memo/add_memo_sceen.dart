@@ -3,7 +3,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:go_router/go_router.dart';
-import 'package:one_minutes_memo/provider/memo_content_list.dart';
+import 'package:one_minutes_memo/provider/memo_content_list_provider.dart';
 import 'package:one_minutes_memo/provider/memo_title_provider.dart';
 import 'package:one_minutes_memo/util/dialog/show_platform_alert_dialog.dart';
 import 'package:one_minutes_memo/view/component/button/primary_button.dart';
@@ -22,7 +22,7 @@ class AddMemoScreenState extends ConsumerState<AddMemoScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final List<String> addedMemos = ref.watch(memoContentsProvider);
+    final List<String?> addedMemos = ref.watch(memoContentsNotifireProvider);
     final String? memoTitle = ref.watch(memoTitleProvier);
     return WillPopScope(
       onWillPop: () => _onWillPop(),
@@ -67,7 +67,9 @@ class AddMemoScreenState extends ConsumerState<AddMemoScreen> {
                   SliverList(
                     delegate: SliverChildBuilderDelegate(
                       (context, index) {
-                        return ListTile(title: SimpleText(addedMemos[index]));
+                        return ListTile(
+                          title: SimpleText(addedMemos[index] ?? 'メモなし'),
+                        );
                       },
                       childCount: addedMemos.length,
                     ),
@@ -100,7 +102,7 @@ class AddMemoScreenState extends ConsumerState<AddMemoScreen> {
       const SnackBar(content: Text('メモを追加しました')),
     );
     ref
-        .watch(memoContentsProvider.notifier)
+        .watch(memoContentsNotifireProvider.notifier)
         .addMemo(_formKey.currentState!.value["memo"]);
 
     _formKey.currentState!.patchValue({'memo': ''});
