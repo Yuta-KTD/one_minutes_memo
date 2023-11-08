@@ -5,17 +5,18 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:go_router/go_router.dart';
 import 'package:one_minutes_memo/provider/memo_title_provider.dart';
 import 'package:one_minutes_memo/repository/auth_repository.dart';
+import 'package:one_minutes_memo/router/router.dart';
 import 'package:one_minutes_memo/view/component/button/primary_button.dart';
 import 'package:one_minutes_memo/view/component/form/primary_text_field.dart';
 import 'package:one_minutes_memo/view/component/simple_text.dart';
 
 class TitleScreen extends ConsumerWidget {
-  TitleScreen({super.key});
-
-  final _formKey = GlobalKey<FormBuilderState>();
+  const TitleScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final formKey = GlobalKey<FormBuilderState>();
+
     return Scaffold(
       appBar: AppBar(
         title: const SimpleText("今回のテーマ"),
@@ -28,7 +29,7 @@ class TitleScreen extends ConsumerWidget {
       ),
       body: Center(
         child: FormBuilder(
-          key: _formKey,
+          key: formKey,
           child: Column(
             children: [
               Padding(
@@ -44,7 +45,7 @@ class TitleScreen extends ConsumerWidget {
                 ),
               ),
               PrimaryButton(
-                onPressed: () => _onPressed(ref, context),
+                onPressed: () => _onPressed(ref, context, formKey),
                 text: "メモを追加",
               ),
             ],
@@ -54,12 +55,16 @@ class TitleScreen extends ConsumerWidget {
     );
   }
 
-  void _onPressed(WidgetRef ref, BuildContext context) {
-    if (!_formKey.currentState!.saveAndValidate()) {
+  void _onPressed(
+    WidgetRef ref,
+    BuildContext context,
+    GlobalKey<FormBuilderState> formKey,
+  ) {
+    if (!formKey.currentState!.saveAndValidate()) {
       return;
     }
-    final String title = _formKey.currentState!.value["title"];
+    final String title = formKey.currentState!.value["title"];
     ref.watch(memoTitleProvier.notifier).state = title;
-    context.go('/title/addmemo');
+    const AddMemoRoute().go(context);
   }
 }

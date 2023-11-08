@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:one_minutes_memo/provider/sign_in_anonymously_provider.dart';
 import 'package:one_minutes_memo/provider/sign_in_provider.dart';
+import 'package:one_minutes_memo/router/router.dart';
 import 'package:one_minutes_memo/util/async_value_ui.dart';
 import 'package:one_minutes_memo/view/component/button/loading_button.dart';
 import 'package:one_minutes_memo/view/component/button/primary_button.dart';
@@ -64,7 +65,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
           ),
         ),
         PrimaryButton(
-          onPressed: () => context.go('/signup'),
+          onPressed: () => const SignUpRoute().go(context),
           text: '会員登録はこちらから',
         ),
       ],
