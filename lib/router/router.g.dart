@@ -105,7 +105,7 @@ extension $AddMemoRouteExtension on AddMemoRoute {
 // RiverpodGenerator
 // **************************************************************************
 
-String _$routerHash() => r'dd095f135ab9e1a84026f7809091a0914527e542';
+String _$routerHash() => r'639ad9f58d2f000e8011519929b348b3d42b841a';
 
 /// See also [router].
 @ProviderFor(router)

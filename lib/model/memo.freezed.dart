@@ -20,12 +20,12 @@ Memo _$MemoFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Memo {
-  String get memoId => throw _privateConstructorUsedError;
-  String get userId => throw _privateConstructorUsedError;
+// required String memoId,
+// required String userId,
   String get title => throw _privateConstructorUsedError;
-  List<String> get content =>
-      throw _privateConstructorUsedError; // TODO: DateTime ⇔ Timestampの変換
-  DateTime get timeStamp => throw _privateConstructorUsedError;
+  List<String?> get contents => throw _privateConstructorUsedError;
+  @TimestampConverter()
+  DateTime? get createdAt => throw _privateConstructorUsedError;
   String? get image => throw _privateConstructorUsedError;
   bool get shared => throw _privateConstructorUsedError;
 
@@ -40,11 +40,9 @@ abstract class $MemoCopyWith<$Res> {
       _$MemoCopyWithImpl<$Res, Memo>;
   @useResult
   $Res call(
-      {String memoId,
-      String userId,
-      String title,
-      List<String> content,
-      DateTime timeStamp,
+      {String title,
+      List<String?> contents,
+      @TimestampConverter() DateTime? createdAt,
       String? image,
       bool shared});
 }
@@ -62,35 +60,25 @@ class _$MemoCopyWithImpl<$Res, $Val extends Memo>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? memoId = null,
-    Object? userId = null,
     Object? title = null,
-    Object? content = null,
-    Object? timeStamp = null,
+    Object? contents = null,
+    Object? createdAt = freezed,
     Object? image = freezed,
     Object? shared = null,
   }) {
     return _then(_value.copyWith(
-      memoId: null == memoId
-          ? _value.memoId
-          : memoId // ignore: cast_nullable_to_non_nullable
-              as String,
-      userId: null == userId
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
-              as String,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      content: null == content
-          ? _value.content
-          : content // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      timeStamp: null == timeStamp
-          ? _value.timeStamp
-          : timeStamp // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+      contents: null == contents
+          ? _value.contents
+          : contents // ignore: cast_nullable_to_non_nullable
+              as List<String?>,
+      createdAt: freezed == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
       image: freezed == image
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
@@ -110,11 +98,9 @@ abstract class _$$_MemoCopyWith<$Res> implements $MemoCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String memoId,
-      String userId,
-      String title,
-      List<String> content,
-      DateTime timeStamp,
+      {String title,
+      List<String?> contents,
+      @TimestampConverter() DateTime? createdAt,
       String? image,
       bool shared});
 }
@@ -128,35 +114,25 @@ class __$$_MemoCopyWithImpl<$Res> extends _$MemoCopyWithImpl<$Res, _$_Memo>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? memoId = null,
-    Object? userId = null,
     Object? title = null,
-    Object? content = null,
-    Object? timeStamp = null,
+    Object? contents = null,
+    Object? createdAt = freezed,
     Object? image = freezed,
     Object? shared = null,
   }) {
     return _then(_$_Memo(
-      memoId: null == memoId
-          ? _value.memoId
-          : memoId // ignore: cast_nullable_to_non_nullable
-              as String,
-      userId: null == userId
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
-              as String,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      content: null == content
-          ? _value._content
-          : content // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      timeStamp: null == timeStamp
-          ? _value.timeStamp
-          : timeStamp // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+      contents: null == contents
+          ? _value._contents
+          : contents // ignore: cast_nullable_to_non_nullable
+              as List<String?>,
+      createdAt: freezed == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
       image: freezed == image
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
@@ -173,34 +149,30 @@ class __$$_MemoCopyWithImpl<$Res> extends _$MemoCopyWithImpl<$Res, _$_Memo>
 @JsonSerializable()
 class _$_Memo implements _Memo {
   const _$_Memo(
-      {required this.memoId,
-      required this.userId,
-      required this.title,
-      required final List<String> content,
-      required this.timeStamp,
+      {required this.title,
+      required final List<String?> contents,
+      @TimestampConverter() this.createdAt,
       this.image,
       this.shared = false})
-      : _content = content;
+      : _contents = contents;
 
   factory _$_Memo.fromJson(Map<String, dynamic> json) => _$$_MemoFromJson(json);
 
-  @override
-  final String memoId;
-  @override
-  final String userId;
+// required String memoId,
+// required String userId,
   @override
   final String title;
-  final List<String> _content;
+  final List<String?> _contents;
   @override
-  List<String> get content {
-    if (_content is EqualUnmodifiableListView) return _content;
+  List<String?> get contents {
+    if (_contents is EqualUnmodifiableListView) return _contents;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_content);
+    return EqualUnmodifiableListView(_contents);
   }
 
-// TODO: DateTime ⇔ Timestampの変換
   @override
-  final DateTime timeStamp;
+  @TimestampConverter()
+  final DateTime? createdAt;
   @override
   final String? image;
   @override
@@ -209,7 +181,7 @@ class _$_Memo implements _Memo {
 
   @override
   String toString() {
-    return 'Memo(memoId: $memoId, userId: $userId, title: $title, content: $content, timeStamp: $timeStamp, image: $image, shared: $shared)';
+    return 'Memo(title: $title, contents: $contents, createdAt: $createdAt, image: $image, shared: $shared)';
   }
 
   @override
@@ -217,20 +189,18 @@ class _$_Memo implements _Memo {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Memo &&
-            (identical(other.memoId, memoId) || other.memoId == memoId) &&
-            (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.title, title) || other.title == title) &&
-            const DeepCollectionEquality().equals(other._content, _content) &&
-            (identical(other.timeStamp, timeStamp) ||
-                other.timeStamp == timeStamp) &&
+            const DeepCollectionEquality().equals(other._contents, _contents) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
             (identical(other.image, image) || other.image == image) &&
             (identical(other.shared, shared) || other.shared == shared));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, memoId, userId, title,
-      const DeepCollectionEquality().hash(_content), timeStamp, image, shared);
+  int get hashCode => Object.hash(runtimeType, title,
+      const DeepCollectionEquality().hash(_contents), createdAt, image, shared);
 
   @JsonKey(ignore: true)
   @override
@@ -248,26 +218,22 @@ class _$_Memo implements _Memo {
 
 abstract class _Memo implements Memo {
   const factory _Memo(
-      {required final String memoId,
-      required final String userId,
-      required final String title,
-      required final List<String> content,
-      required final DateTime timeStamp,
+      {required final String title,
+      required final List<String?> contents,
+      @TimestampConverter() final DateTime? createdAt,
       final String? image,
       final bool shared}) = _$_Memo;
 
   factory _Memo.fromJson(Map<String, dynamic> json) = _$_Memo.fromJson;
 
-  @override
-  String get memoId;
-  @override
-  String get userId;
-  @override
+  @override // required String memoId,
+// required String userId,
   String get title;
   @override
-  List<String> get content;
-  @override // TODO: DateTime ⇔ Timestampの変換
-  DateTime get timeStamp;
+  List<String?> get contents;
+  @override
+  @TimestampConverter()
+  DateTime? get createdAt;
   @override
   String? get image;
   @override

@@ -3,6 +3,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:go_router/go_router.dart';
+import 'package:one_minutes_memo/provider/add_memo_provider.dart';
 import 'package:one_minutes_memo/provider/memo_content_list_provider.dart';
 import 'package:one_minutes_memo/provider/memo_title_provider.dart';
 import 'package:one_minutes_memo/util/dialog/show_platform_alert_dialog.dart';
@@ -26,58 +27,61 @@ class AddMemoScreenState extends ConsumerState<AddMemoScreen> {
     final String? memoTitle = ref.watch(memoTitleProvier);
     return WillPopScope(
       onWillPop: () => _onWillPop(),
-      child: Scaffold(
-        appBar: AppBar(
-          title: SimpleText("メモの入力(タイトル: ${memoTitle ?? 'なし'})"),
-        ),
-        bottomNavigationBar: BottomAppBar(
-            child: PrimaryButton(
-          onPressed: () => _onSessionSubmitted(),
-          text: "セクションを終了",
-        )),
-        body: Column(
-          children: [
-            FormBuilder(
-              key: _formKey,
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: PrimaryTextField(
-                      name: "memo",
-                      labelText: "本文",
-                      isMultiLineInput: true,
-                      validator: FormBuilderValidators.compose([
-                        FormBuilderValidators.required(
-                          errorText: '最低1文字は入力が必要です',
-                        )
-                      ]),
+      child: GestureDetector(
+        onTap: () => primaryFocus?.unfocus(),
+        child: Scaffold(
+          appBar: AppBar(
+            title: SimpleText("メモの入力(タイトル: ${memoTitle ?? 'なし'})"),
+          ),
+          bottomNavigationBar: BottomAppBar(
+              child: PrimaryButton(
+            onPressed: () => _onSessionSubmitted(),
+            text: "セクションを終了",
+          )),
+          body: Column(
+            children: [
+              FormBuilder(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: PrimaryTextField(
+                        name: "memo",
+                        labelText: "本文",
+                        isMultiLineInput: true,
+                        validator: FormBuilderValidators.compose([
+                          FormBuilderValidators.required(
+                            errorText: '最低1文字は入力が必要です',
+                          )
+                        ]),
+                      ),
                     ),
-                  ),
-                  PrimaryButton(
-                    onPressed: () => _onPressed(),
-                    text: "メモを追加",
-                  ),
-                ],
-              ),
-            ),
-            Expanded(
-              child: CustomScrollView(
-                slivers: <Widget>[
-                  SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (context, index) {
-                        return ListTile(
-                          title: SimpleText(addedMemos[index] ?? 'メモなし'),
-                        );
-                      },
-                      childCount: addedMemos.length,
+                    PrimaryButton(
+                      onPressed: () => _onPressed(),
+                      text: "メモを追加",
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+              Expanded(
+                child: CustomScrollView(
+                  slivers: <Widget>[
+                    SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                        (context, index) {
+                          return ListTile(
+                            title: SimpleText(addedMemos[index] ?? 'メモなし'),
+                          );
+                        },
+                        childCount: addedMemos.length,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -108,7 +112,7 @@ class AddMemoScreenState extends ConsumerState<AddMemoScreen> {
     _formKey.currentState!.patchValue({'memo': ''});
   }
 
-  void _onSessionSubmitted() {
-    // FireStoreへの保存処理を書く
+  Future<void> _onSessionSubmitted() async {
+    await ref.read(addMemoAsyncNotifierProvider.notifier).addMemo();
   }
 }
